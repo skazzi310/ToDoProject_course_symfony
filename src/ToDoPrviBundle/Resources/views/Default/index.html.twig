@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>nForget++</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+        <script src="/bundles/todoprvi/js/ripples.js"></script>
+        <script src="/bundles/todoprvi/js/material.min.js"></script>
+        <script src="/bundles/todoprvi/js/myController.js"></script>
+
+        <link href="/bundles/todoprvi/css/roboto.min.css" rel="stylesheet">
+        <link href="/bundles/todoprvi/css/material.min.css" rel="stylesheet">
+        <link href="/bundles/todoprvi/css/ripples.min.css" rel="stylesheet">
+        <link href="/bundles/todoprvi/css/todo_app.css" rel="stylesheet">
+        <script>
+            $(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper" class="container">
+
+            {#NAVBAR#}
+            <div class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="javascript:void(0)">nForget++</a>
+                </div>
+                <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="javascript:void(0)">home</a></li>
+                        <li><a href="{{ path('addNew') }}">add</a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="jumbotron">
+                <h1> nForget++ </h1>
+            </div>
+
+            {#TODO items#}
+            <a href="{{ path('removeAll') }}"><input type="button" class="btn btn-danger" value="delete all"></a>
+
+            <div class="list-group">
+               {% for item in items %}
+                <div class="list-group-separator"></div>
+                <div class="list-group-item">
+                    <div class="row-action-primary checkbox">
+                        <label><input type="checkbox"></label>
+                    </div>
+                    <div class="row-content">
+                        <h4 class="list-group-item-heading">{{ item.getName() }}</h4>
+                        <p class="list-group-item-text"> Created on: {{ item.getCreationTime().format("m.d.y") }}</p>
+                        <p class="list-group-item-text"> Expires on: {{ item.getDueDate().format("m.d.y") }}</p>
+                        <p class="list-group-item-text"> Location: {{ item.Location() }}</p>
+                        <a href=" {{ path('remove', {'id' : item.getId()}) }} "><input type="button" class="btn btn-danger" value="delete"></a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

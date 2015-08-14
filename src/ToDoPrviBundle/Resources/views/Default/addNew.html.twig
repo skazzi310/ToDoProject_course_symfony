@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add new</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="/bundles/todoprvi/js/ripples.js"></script>
+    <script src="/bundles/todoprvi/js/material.min.js"></script>
+
+    <link href="/bundles/todoprvi/css/roboto.min.css" rel="stylesheet">
+    <link href="/bundles/todoprvi/css/material.min.css" rel="stylesheet">
+    <link href="/bundles/todoprvi/css/ripples.min.css" rel="stylesheet">
+    <link href="/bundles/todoprvi/css/todo_app.css" rel="stylesheet">
+    <script>
+        $(document).ready(function() {
+            // This command is used to initialize some elements and make them work properly
+            $.material.init();
+        });
+    </script>
+</head>
+<body>
+<div id="wrapper" class="container">
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0)">nForget++</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ path('home') }}">home</a></li>
+                <li class="active"><a href="#">add</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="jumbotron">
+        <h1> nForget++ </h1>
+    </div>
+    {{ form_start(form)}}
+    {{ form_end(form) }}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+to_do_prvi:
+    resource: "@ToDoPrviBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
