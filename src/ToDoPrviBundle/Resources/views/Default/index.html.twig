@@ -1,76 +1,108 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>nForget++</title>
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+{% extends "ToDoPrviBundle:Default:appTemplate.html.twig" %}
 
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
 
-        <script src="/bundles/todoprvi/js/ripples.js"></script>
-        <script src="/bundles/todoprvi/js/material.min.js"></script>
-        <script src="/bundles/todoprvi/js/myController.js"></script>
+    {% block content %}
+    <a id="button_addNew" href="{{ path('addNew') }}" class="btn btn-primary btn-fab btn-raised mdi-content-add"></a>
 
-        <link href="/bundles/todoprvi/css/roboto.min.css" rel="stylesheet">
-        <link href="/bundles/todoprvi/css/material.min.css" rel="stylesheet">
-        <link href="/bundles/todoprvi/css/ripples.min.css" rel="stylesheet">
-        <link href="/bundles/todoprvi/css/todo_app.css" rel="stylesheet">
-        <script>
-            $(document).ready(function() {
-                // This command is used to initialize some elements and make them work properly
-                $.material.init();
-            });
-        </script>
-    </head>
-    <body>
-        <div id="wrapper" class="container">
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $("#navbar_home").addClass("active");
+        });
+    </script>
 
-            {#NAVBAR#}
-            <div class="navbar navbar-default">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="javascript:void(0)">nForget++</a>
+    <div class="container">
+
+        {#TODO items#}
+        <a href="{{ path('removeAll') }}"><input type="button" class="btn btn-danger" value="delete all"></a>
+
+
+        <h2>Sort by</h2>
+         <form id="form_sort" method="POST" action="{{ path("sortBy") }}">
+                <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" name="sort_param" value="byName" checked="">
+                        name
+                    </label>
                 </div>
-                <div class="navbar-collapse collapse navbar-responsive-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="javascript:void(0)">home</a></li>
-                        <li><a href="{{ path('addNew') }}">add</a></li>
+                <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" name="sort_param" value="byLocation">
+                        location
+                    </label>
+                </div>
+                <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" name="sort_param" value="byCreatedDate">
+                        created date
+                    </label>
+                </div>
+                <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" name="sort_param" value="byExpDate">
+                        expiration date
+                    </label>
+                </div>
+            <input type="submit" class="btn btn-primary" value="sort">
+        </form>
 
-                    </ul>
+        {#<div class="list-group">#}
+            {#{% for item in items %}#}
+                {#<div class="list-group-separator"></div>#}
+                {#<div class="list-group-item">#}
+                    {#<div class="row-action-primary checkbox">#}
+                        {#<label><input type="checkbox"></label>#}
+                    {#</div>#}
+                    {#<div class="row-content">#}
+                        {#<h4 class="list-group-item-heading">{{ item.getName() }}</h4>#}
+
+                        {#<p class="list-group-item-text"> Created on: {{ item.getCreationTime().format("l jS F Y") }}</p>#}
+
+                        {#<p class="list-group-item-text"> Expires on: {{ item.getDueDate().format("l jS F Y") }}</p>#}
+
+                        {#<p class="list-group-item-text"> Location: {{ item.Location() }}</p>#}
+                        {#<a href="{{ path('edit', {'id' : item.getId()}) }}"><input type="button" class="btn btn-primary" value="edit"></a>#}
+                        {#<a href=" {{ path('remove', {'id' : item.getId()}) }} "><input type="button"#}
+                                                                                       {#class="btn btn-danger"#}
+                                                                                       {#value="delete"></a>#}
+                    {#</div>#}
+                {#</div>#}
+            {#{% endfor %}#}
+
+        {#</div>#}
+
+
+
+
+        <h2> Your todo list</h2>
+        <div class="list-group">
+            {% for item in items %}
+            <div class="list-group-separator"></div>
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-editor-border-color"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">{{ item.getName() }}</h4>
+                    <p class="list-group-item-text"> Created on: {{ item.getCreationTime().format("l jS F Y") }}</p>
+                    <p class="list-group-item-text"> Expires on: {{ item.getDueDate().format("l jS F Y") }}</p>
+                    <p class="list-group-item-text"> Location: {{ item.Location() }}</p>
+                    <a href="{{ path('edit', {'id' : item.getId()}) }}"><input type="button" class="btn btn-primary" value="edit"></a>
+                    <a href=" {{ path('remove', {'id' : item.getId()}) }} "><input type="button"
+                                                                                   class="btn btn-danger"
+                                                                                   value="delete"></a>
                 </div>
             </div>
-
-            <div class="jumbotron">
-                <h1> nForget++ </h1>
-            </div>
-
-            {#TODO items#}
-            <a href="{{ path('removeAll') }}"><input type="button" class="btn btn-danger" value="delete all"></a>
-
-            <div class="list-group">
-               {% for item in items %}
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary checkbox">
-                        <label><input type="checkbox"></label>
-                    </div>
-                    <div class="row-content">
-                        <h4 class="list-group-item-heading">{{ item.getName() }}</h4>
-                        <p class="list-group-item-text"> Created on: {{ item.getCreationTime().format("m.d.y") }}</p>
-                        <p class="list-group-item-text"> Expires on: {{ item.getDueDate().format("m.d.y") }}</p>
-                        <p class="list-group-item-text"> Location: {{ item.Location() }}</p>
-                        <a href=" {{ path('remove', {'id' : item.getId()}) }} "><input type="button" class="btn btn-danger" value="delete"></a>
-                    </div>
-                </div>
-                {% endfor %}
-
-            </div>
+            {% endfor %}
+            <div class="list-group-separator"></div>
 
         </div>
 
-    </body>
-</html>
+    </div>
+    {% endblock %}

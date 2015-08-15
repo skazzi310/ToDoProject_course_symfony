@@ -10,10 +10,9 @@
     {% block content %}
     <script type="text/javascript">
         $(document).ready(function (){
-            $("#navbar_add").addClass("active");
+            $("#navbar_edit").addClass("active");
         });
     </script>
-
     <div class="container">
         <div class="alert alert-dismissable alert-info">
             <button type="button" class="close" data-dismiss="alert">×</button>
@@ -24,11 +23,10 @@
 
         <div class="panel panel-default">
             <div class="panel-body">
-                <legend>New task</legend>
+                <legend>Edit task</legend>
                 {{ form_start(form) }}
                 {{ form_end(form) }}
             </div>
         </div>
-
     </div>
     {% endblock %}
