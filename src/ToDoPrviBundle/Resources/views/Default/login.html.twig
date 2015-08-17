@@ -1,0 +1,66 @@
+{# app/Resources/views/security/login.html.twig #}
+{# ... you will probably extends your base template, like base.html.twig #}
+
+{% extends "ToDoPrviBundle:Default:appTemplate.html.twig" %}
+
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block content %}
+        <style type="text/css">
+            .panel_login {
+                padding: 15px;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(document).ready(function (){
+                $("#navbar_login").addClass("active");
+            });
+        </script>
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel_login panel panel-default">
+                    <form action="{{ path('login_check') }}" method="post">
+                        <legend> Login </legend>
+                        <label for="username">Username:</label>
+                        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+                        <label for="password">Password:</label>
+                        <input class="form-control" type="password" id="password" name="_password"/>
+
+                        {#
+                            If you want to control the URL the user
+                            is redirected to on success (more details below)
+                            <input type="hidden" name="_target_path" value="/account" />
+                        #}
+
+                        <button class="btn btn-primary" type="submit">login</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel_login panel panel-default">
+                    <legend>Notice</legend>
+                    <p> If you don't have an account, click <a href="{{ path('register') }}">here</a> to register.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% endblock %}
+
+    {% block footer %}
+        <a id="button_addNew" href="{{ path('addNew') }}"
+           class="btn btn-primary btn-fab btn-raised mdi-content-add"></a>
+        {{ parent() }}
+    {% endblock %}

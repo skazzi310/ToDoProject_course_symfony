@@ -49,6 +49,11 @@ class Item
      */
     private $creationTime;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
     /**
      * Get id
@@ -150,5 +155,28 @@ class Item
     public function getCreationTime()
     {
         return $this->creationTime;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \ToDoPrviBundle\Entity\User $user
+     * @return Item
+     */
+    public function setUser(\ToDoPrviBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \ToDoPrviBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

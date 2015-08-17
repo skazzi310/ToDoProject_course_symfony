@@ -1,0 +1,55 @@
+{% extends "ToDoPrviBundle:Default:appTemplate.html.twig" %}
+
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block content %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#registration_user_password_confirm").addClass("form-control");
+            $("#registration_user_password_password").addClass("form-control");
+            $("#registration_Register").addClass("btn btn-primary");
+        });
+
+    </script>
+    <style type="text/css">
+        #form_wrapper {
+            padding: 15px;
+        }
+
+    </style>
+
+    <div class="container">
+        <div id="form_wrapper" class="panel panel-default">
+            {{ form_start(form, {'attr': {'id': 'form_register'}}) }}
+            {{ form_end(form) }}
+
+            {#example of how mat. design checkbox needs to look#}
+            {#<div class="checkbox">#}
+                {#<label>#}
+                    {#<input type="checkbox"> Checkbox#}
+                {#</label>#}
+            {#</div>#}
+
+        </div>
+    </div>
+
+
+        {#<div class="panel panel-default">#}
+            {#<div class="panel-body">#}
+                {#<legend>New task</legend>#}
+                {#{{ form_start(form) }}#}
+                {#{{ form_end(form) }}#}
+            {#</div>#}
+        {#</div>#}
+
+    {% endblock %}
+
+    {% block footer %}
+        <a id="button_addNew" href="{{ path('addNew') }}" class="btn btn-primary btn-fab btn-raised mdi-content-add"></a>
+        {{ parent() }}
+    {% endblock %}
