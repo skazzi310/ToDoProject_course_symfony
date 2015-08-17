@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: skazzi
- * Date: 17.8.15.
- * Time: 13.32
- */
 
 namespace ToDoPrviBundle\Controller;
 
@@ -18,9 +12,9 @@ class AccountController extends Controller
     public function registerAction()
     {
         $registration = new Registration();
-        $form = $this->createForm(new RegistrationType(), $registration, array(
+        $form = $this->createForm(new RegistrationType(), $registration, [
             'action' => $this->generateUrl('account_create'),
-        ));
+        ]);
 
         return $this->render(
             '@ToDoPrvi/Default/register.html.twig',
