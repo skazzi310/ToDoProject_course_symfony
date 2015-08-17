@@ -46,6 +46,7 @@
                     <li id="navbar_home"><a href="{{ path('home') }}">home</a></li>
                     <li id="navbar_add"><a href="{{ path('addNew') }}">add</a></li>
                     <li id="navbar_edit"><a href="{{ path('addNew') }}">edit</a></li>
+                    <li id="navbar_contact"><a href="{{ path('contact') }}">contact</a></li>
                 </ul>
             </div>
         </div>
@@ -58,11 +59,121 @@
     {% endblock %}
 
     {% block content %}
+    {#<button id="bt_sendToTop" class="btn btn-fab btn-raised btn-material-red"><i class="mdi-maps-navigation"></i></button>#}
     {% endblock %}
 
-    {% block footer %}
-    <div id="footer" class="">
+{#Pages:#}
+    {#...#}
+{#External links#}
+    {#...#}
+{#Go to the top of page#}
 
+    {#2nd jumbo paralax#}
+    <section id="jumbo2" class="bg-1 text-center">
+    </section>
+
+    {% block footer %}
+    <div id="footer" class="well well-material-teal">
+        <div class="container">
+            <button id="bt_sendToTop" class="btn btn-fab btn-raised btn-material-red"><i class="mdi-maps-navigation"></i></button>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3> Pages: </h3>
+                    <ul>
+                        <li id="navbar_home"><a href="{{ path('home') }}">home</a></li>
+                        <li id="navbar_add"><a href="{{ path('addNew') }}">add</a></li>
+                        <li id="navbar_edit"><a href="{{ path('addNew') }}">edit</a></li>
+                        <li id="navbar_contact"><a href="{{ path('contact') }}">contact</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="col-md-6">
+                    <h3> External links: </h3>
+                    <ul>
+                        <li> <a href="https://github.com/skazzi310" target="_blank">My github page</a></li>
+                        <li> <a href="http://www.alas.matf.bg.ac.rs/~mi13283" target="_blank">My website</a></li>
+                        <li> <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></li>
+                        <li> <a href="https://fezvrasta.github.io/bootstrap-material-design/" target="_blank">Fez Vrasta's theme</a></li>
+                        <li> <a href="https://symfony.com/" target="_blank">Symfony2</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            {#<div class="row">#}
+                {#<div class="col-md-6">#}
+                    {#<div class="list-group">#}
+                        {#<div class="list-group-item">#}
+                            {#<div class="row-picture">#}
+                                {#<img class="circle" src="http://i.cubeupload.com/UnY39K.jpeg" alt="icon">#}
+                            {#</div>#}
+                            {#<div class="row-content">#}
+                                {#<h4 class="list-group-item-heading">My github page</h4>#}
+                                {#<p class="list-group-item-text"><a href="https://github.com/skazzi310" target="_blank">click me </a></p>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="list-group-separator"></div>#}
+                        {#<div class="list-group-item">#}
+                            {#<div class="row-picture">#}
+                                {#<img class="circle" src="http://i.cubeupload.com/UnY39K.jpeg" alt="icon">#}
+                            {#</div>#}
+                            {#<div class="row-content">#}
+                                {#<h4 class="list-group-item-heading">My website</h4>#}
+                                {#<p class="list-group-item-text"><a href="http://www.alas.matf.bg.ac.rs/~mi13283" target="_blank">click me</a></p>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="list-group-separator"></div>#}
+                        {#<div class="list-group-item">#}
+                            {#<div class="row-picture">#}
+                                {#<img class="circle" src="http://assets.toptal.io/uploads/blog/category/logo/80/twitter_bootstrap.png" alt="icon">#}
+                            {#</div>#}
+                            {#<div class="row-content">#}
+                                {#<h4 class="list-group-item-heading">Bootstrap</h4>#}
+                                {#<p class="list-group-item-text"><a href="http://getbootstrap.com/" target="_blank">click me</a></p>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="list-group-separator"></div>#}
+                    {#</div>#}
+                {#</div>#}
+
+                {#<div class="col-md-6">#}
+                    {#<div class="list-group">#}
+                        {#<div class="list-group-item">#}
+                            {#<div class="row-picture">#}
+                                {#<img class="circle" src="http://lorempixel.com/56/56/people/1" alt="icon">#}
+                            {#</div>#}
+                            {#<div class="row-content">#}
+                                {#<h4 class="list-group-item-heading">Tile with avatar</h4>#}
+                                {#<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus</p>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="list-group-separator"></div>#}
+                        {#<div class="list-group-item">#}
+                            {#<div class="row-picture">#}
+                                {#<img class="circle" src="http://lorempixel.com/56/56/people/6" alt="icon">#}
+                            {#</div>#}
+                            {#<div class="row-content">#}
+                                {#<h4 class="list-group-item-heading">Tile with another avatar</h4>#}
+                                {#<p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="list-group-separator"></div>#}
+                        {#<div class="list-group-item">#}
+                            {#<div class="row-action-primary checkbox">#}
+                                {#<label><input type="checkbox"></label>#}
+                            {#</div>#}
+                            {#<div class="row-content">#}
+                                {#<h4 class="list-group-item-heading">Tile with a checkbox in it</h4>#}
+                                {#<p class="list-group-item-text">Donec id elit non mi risus varius blandit.</p>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="list-group-separator"></div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+        </div>
     </div>
     {% endblock %}
 </div>

@@ -1,0 +1,51 @@
+{% extends "ToDoPrviBundle:Default:appTemplate.html.twig" %}
+
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block content %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#navbar_contact").addClass("active");
+            });
+        </script>
+        <div class="container">
+            <div class="well">
+                <h2> From app creator: </h2>
+
+                <p> This app has been created as part of the course <span class="text-info">Advanced PHP with Symfony2 framework.</span>
+                </p>
+
+                <p> The goal of the app was to showcase some basic components Symfony provides.</p>
+
+                <p> If you want to find out more about Symfony you can do so <a href="https://symfony.com/"
+                                                                                target="_blank">here.</a></p>
+
+                <p> If you wish to contact me you can do so at: <a href="mailto:#">auroraholding@live.com</a></p>
+
+                <p> You can also visit my homepage at <a href="http://www.alas.matf.bg.ac.rs/~mi13283" target="_blank">www.alas.matf.bg.ac.rs/~mi13283</a>
+                </p>
+            </div>
+            <div class="well">
+                <h2> Used resources: </h2>
+
+                <p> Besides Symfony2 framework for PHP, I've used <a href="http://getbootstrap.com/" target="_blank">bootstrap</a>
+                    to make my app scalable on all platforms.</p>
+
+                <p> I've also used <a href="https://www.google.com/design/spec/material-design/introduction.html"
+                                      target="_blank">material design</a> styled theme for bootstrap you can find <a
+                            href="https://fezvrasta.github.io/bootstrap-material-design/">here</a>
+                    created by Fez Vrasta (his <a href="https://github.com/FezVrasta" target="_blank">github page</a>).
+                    I would like to use this chance to say big thanks to Fez for creating such an awesome theme!</p>
+            </div>
+        </div>
+    {% endblock %}
+
+     {% block footer %}
+         <a id="button_addNew" href="{{ path('addNew') }}" class="btn btn-primary btn-fab btn-raised mdi-content-add"></a>
+         {{ parent() }}
+     {% endblock %}

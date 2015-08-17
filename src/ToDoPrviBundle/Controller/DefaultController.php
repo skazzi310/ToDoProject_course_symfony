@@ -154,6 +154,14 @@ class DefaultController extends Controller
         return $this->redirectToRoute('home');
     }
 
+    /**
+     * @Route("/contact", name="contact"))
+     */
+    public function contactController()
+    {
+        return $this->render("@ToDoPrvi/Default/contact.html.twig");
+    }
+
 
     /**
      * @Route("/add", name="addNew")

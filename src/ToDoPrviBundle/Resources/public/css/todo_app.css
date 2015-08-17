@@ -13,14 +13,37 @@ body
 #button_addNew
 {
     position: fixed;
-    right: 5%;
-    bottom: 5%;
+    right: 3%;
+    bottom: 3%;
 }
 
 #jumbo
 {
     position: relative;
     top: -20px;
+}
+
+#jumbo2
+{
+    position: relative;
+    top: 10px;
+}
+
+#footer
+{
+    color: white;
+}
+
+#bt_sendToTop
+{
+    position: fixed;
+    left: 3%;
+    bottom: 3%;
+}
+
+#footer a
+{
+    color: white;
 }
 
 /*PARALAX*/
@@ -53,15 +76,15 @@ section {
     background-size:cover;
 }
 
-#footer {
-    height: 60px;
-    background-color:#585858;
-    margin-top:50px;
-    padding-top:20px;
-    padding-bottom:20px;
-}
+/*#footer {*/
+    /*height: 60px;*/
+    /*background-color:#585858;*/
+    /*margin-top:50px;*/
+    /*padding-top:20px;*/
+    /*padding-bottom:20px;*/
+/*}*/
 
-#footer a {
-    color:#efefef;
-}
+/*#footer a {*/
+    /*color:#efefef;*/
+/*}*/
 
