@@ -39,6 +39,5 @@ The course was a great experience and my thanks to @ivanbatic from whom we learn
 
 ### Contact
 ```php
-<?php echo "auroraholding@live.com (me) & acazoric94@gmail.com";
-?>
+<?php echo "auroraholding@live.com (me) & acazoric94@gmail.com"; ?>
 ```
