@@ -34,8 +34,11 @@ The course was a great experience and my thanks to @ivanbatic from whom we learn
 * Symfony2
 * TWIG template engine
 
-## Bugs (left to **kill**)
+### Bugs (left to **kill**)
 * Adding item through terminal doesn't connect it directly to the logged in user (old logic left from previous version which didn't have login system)
+
+### Notice
+Make sure you check the screenshots folder to see how does the app look and feel. Hopefully I will be able to deploy a live demo soon.
 
 ### Contact
 ```php
