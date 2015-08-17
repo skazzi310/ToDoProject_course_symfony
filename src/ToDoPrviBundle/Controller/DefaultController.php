@@ -7,10 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\DateTime;
 use ToDoPrviBundle\Entity\Item;
-use ToDoPrviBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use ToDoPrviBundle\Form\Model\Registration;
 use ToDoPrviBundle\Form\Type\RegistrationType;
@@ -24,6 +21,16 @@ class DefaultController extends Controller
     private function getActiveUser()
     {
         return $this->get('security.token_storage')->getToken()->getUser();
+    }
+
+    /**
+     * @return array of /ToDoPrviBundle:Entity/Item objects
+     */
+    private function getUserPosts()
+    {
+        $user = $this->getActiveUser();
+        $items = $user->getPosts()->getValues();
+        return $items;
     }
 
     /**
@@ -67,17 +74,9 @@ class DefaultController extends Controller
      */
     public function addAction(Request $request)
     {
-        // deprecated
-//        contacting database and fetching all rows
-//        $items = $this->getDoctrine()
-//            ->getRepository('ToDoPrviBundle:Item')->findAll();
-
         // we get the active user object and fetch all post from database
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $items = $user->getPosts();
+        $items = $this->getUserPosts();
 
-
-//        sending array $items for TWIG to render it
         return $this->render("@ToDoPrvi/Default/index.html.twig", [
             "items" => $items
         ]);
@@ -86,13 +85,10 @@ class DefaultController extends Controller
     /**
      * @Route("/edit/{id}", name="edit")
      * @Method({"GET", "POST"})
-     * edits a todo list item
+     * edits a to-do list item
      */
     public function editItemAction(Item $item, Request $request)
     {
-//        $maliPost = new Item();
-//        $maliPost->setCreationTime(new \DateTime("now"));
-
         $form = $this->createFormBuilder($item)
             ->add("Name", "text", [
                 'attr' => [
@@ -126,7 +122,6 @@ class DefaultController extends Controller
             "form" => $form->createView()
         ]);
 
-
         return $this->render("@ToDoPrvi/Default/edit.html.twig");
     }
 
@@ -138,32 +133,33 @@ class DefaultController extends Controller
     public function sortItems(Request $request)
     {
         $data = $request->request->get('sort_param');
+        $items = $this->getUserPosts();
 
-        $items = $this->getDoctrine()
-            ->getRepository('ToDoPrviBundle:Item')->findAll();
-
-        if (strcmp($data, 'byName') == 0) {
-            usort($items, function (Item $a, Item $b) {
-                return strcmp(strtolower($a->getName()), strtolower($b->getName()));
-            });
-        } else if (strcmp($data, 'byLocation') == 0) {
-            usort($items, function (Item $a, Item $b) {
-                return strcmp(strtolower($a->getLocation()), strtolower($b->getLocation()));
-            });
-        } else if (strcmp($data, 'byCreatedDate') == 0) {
-            usort($items, function (Item $a, Item $b) {
-                if ($a->getCreationTime() == $b->getCreationTime()) return 0;
-                else return $a->getItemCreationTime() > $b->getCreationTime() ? 1 : -1;
-            });
-        } else if (strcmp($data, 'byExpDate') == 0) {
-            usort($items, function (Item $a, Item $b) {
-                if ($a->getDueDate() == $b->getDueDate()) return 0;
-                else return $a->getDueDate() > $b->getDueDate() ? 1 : -1;
-            });
+        // determining the parameter for sorting
+        switch($data) {
+            case 'byName':
+                usort($items, function (Item $a, Item $b) {
+                    return strcmp(strtolower($a->getName()), strtolower($b->getName()));
+                });
+                break;
+            case 'byLocation':
+                usort($items, function (Item $a, Item $b) {
+                    return strcmp(strtolower($a->getLocation()), strtolower($b->getLocation()));
+                });
+                break;
+            case 'byCreatedDate':
+                usort($items, function (Item $a, Item $b) {
+                    if ($a->getCreationTime() == $b->getCreationTime()) return 0;
+                    else return $a->getCreationTime() > $b->getCreationTime() ? 1 : -1;
+                });
+                break;
+            case 'byExpDate':
+                usort($items, function (Item $a, Item $b) {
+                    if ($a->getDueDate() == $b->getDueDate()) return 0;
+                    else return $a->getDueDate() > $b->getDueDate() ? 1 : -1;
+                });
+                break;
         }
-
-//        unset($items);
-//        $items = array();
 
         return $this->render("@ToDoPrvi/Default/index.html.twig", [
             "items" => $items
@@ -220,11 +216,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $maliPost = new Item();
-        $maliPost->setCreationTime(new \DateTime("now"));
-        $maliPost->setDueDate(new \DateTime("tomorrow"));
+        $post = new Item();
+        $post->setCreationTime(new \DateTime("now"));
+        $post->setDueDate(new \DateTime("tomorrow"));
 
-        $form = $this->createFormBuilder($maliPost)
+        $form = $this->createFormBuilder($post)
             ->add("Name", "text", [
                 'attr' => [
                     'class' => 'form-control'
@@ -248,8 +244,8 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if ($request->isMethod('POST') && $form->getClickedButton()) {
             $em = $this->getDoctrine()->getManager();
-            $maliPost->setUser($this->getActiveUser());
-            $em->persist($maliPost);
+            $post->setUser($this->getActiveUser());
+            $em->persist($post);
             $em->flush();
             return $this->redirectToRoute("home");
         }
