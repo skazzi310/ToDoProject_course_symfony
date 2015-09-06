@@ -74,8 +74,7 @@ class DefaultController extends Controller
      */
     public function addAction(Request $request)
     {
-        $userServices = $this->get('user.services');
-        if ($userServices->isUserLogged()){
+        if ($this->get('user.services')->isUserLogged()){
             // we get the active user object and fetch all post from database
             $items = $this->getUserPosts();
             return $this->render("@ToDoPrvi/Default/index.html.twig", [
