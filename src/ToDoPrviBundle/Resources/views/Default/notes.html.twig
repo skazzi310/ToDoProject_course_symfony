@@ -1,0 +1,23 @@
+{% extends "ToDoPrviBundle:Default:appTemplate.html.twig" %}
+
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block content %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#navbar_notes").addClass("active");
+            });
+        </script>
+    {% endblock %}
+
+     {% block footer %}
+         {% if is_granted("ROLE_USER") %}
+             <a id="button_addNew" href="{{ path('addNew') }}" class="btn btn-primary btn-fab btn-raised mdi-content-add"></a>
+         {% endif %}
+         {{ parent() }}
+     {% endblock %}
