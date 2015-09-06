@@ -28,7 +28,7 @@
                                                                                 target="_blank">here.</a></p>
 
                 <p> If you wish to contact me you can do so at: <a href="mailto:#">auroraholding@live.com</a> <br />
-                    You can find app source code <a href="https://github.com/skazzi310/ToDoProject_course_symfony">here.</a> <br />
+                    You can find app source code on my github repository <a href="https://github.com/skazzi310/ToDoProject_course_symfony">here.</a> <br />
                     You can also visit my homepage at <a href="http://www.alas.matf.bg.ac.rs/~mi13283" target="_blank">www.alas.matf.bg.ac.rs/~mi13283</a> <br />
                 </p> <br />
 
@@ -54,6 +54,8 @@
     {% endblock %}
 
      {% block footer %}
+         {% if is_granted("ROLE_USER") %}
          <a id="button_addNew" href="{{ path('addNew') }}" class="btn btn-primary btn-fab btn-raised mdi-content-add"></a>
+         {% endif %}
          {{ parent() }}
      {% endblock %}
