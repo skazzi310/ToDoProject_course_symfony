@@ -23,7 +23,7 @@ The course was a great experience and my thanks to @ivanbatic from whom we learn
 * <del>Apply Fez Vrasta Material design theme</del>
 * <del>Test GUI on multiple screen sizes</del>
 * <del>Basic support for terminal commands</del>
-* Full support for terminal commands
+* Notes for users
 * Create logo
 * Unit tests
 
