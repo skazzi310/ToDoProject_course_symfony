@@ -74,12 +74,23 @@ class DefaultController extends Controller
      */
     public function addAction(Request $request)
     {
-        // we get the active user object and fetch all post from database
-        $items = $this->getUserPosts();
+        $userServices = $this->get('user.services');
+        if ($userServices->isUserLogged()){
+            // we get the active user object and fetch all post from database
+            $items = $this->getUserPosts();
+            return $this->render("@ToDoPrvi/Default/index.html.twig", [
+              "items" => $items
+             ]);
+        }
+        else {
+            // user isn't logged in
+            return $this->redirectToRoute('login_route');
+        }
 
-        return $this->render("@ToDoPrvi/Default/index.html.twig", [
-            "items" => $items
-        ]);
+
+//        return $this->render("@ToDoPrvi/Default/index.html.twig", [
+//            "items" => $items
+//        ]);
     }
 
     /**
@@ -89,6 +100,9 @@ class DefaultController extends Controller
      */
     public function editItemAction(Item $item, Request $request)
     {
+        if ($this->get('user.services')->isUserLogged())
+            $this->redirectToRoute('login_route');
+
         $form = $this->createFormBuilder($item)
             ->add("Name", "text", [
                 'attr' => [
@@ -216,6 +230,8 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        if (! $this->get('user.services')->isUserLogged())
+            return $this->redirectToRoute('login_route');
         $post = new Item();
         $post->setCreationTime(new \DateTime("now"));
         $post->setDueDate(new \DateTime("tomorrow"));
@@ -254,4 +270,5 @@ class DefaultController extends Controller
             "form" => $form->createView()
         ]);
     }
+
 }
