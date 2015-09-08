@@ -1,0 +1,25 @@
+{% extends "ToDoPrviBundle:Default:appTemplate.html.twig" %}
+
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block content %}
+        <script type="text/javascript">
+            $(document).ready(function (){
+                $("#navbar_edit").addClass("active");
+            });
+        </script>
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <legend>Edit note</legend>
+                    {{ form_start(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
