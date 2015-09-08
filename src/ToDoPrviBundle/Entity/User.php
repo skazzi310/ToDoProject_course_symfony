@@ -1,6 +1,5 @@
 <?php
 
-// src/AppBundle/Entity/User.php
 namespace ToDoPrviBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -45,6 +44,15 @@ class User implements UserInterface, \Serializable
      */
     protected $posts;   // all to-do posts user has
 
+
+    // TODO check
+    /**
+     * @ORM\OneToMany(targetEntity="Note", mappedBy="user")
+     */
+    protected $notes;   // all to-do posts user has
+
+
+    
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -215,5 +223,38 @@ class User implements UserInterface, \Serializable
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * Add notes
+     *
+     * @param \ToDoPrviBundle\Entity\Note $notes
+     * @return User
+     */
+    public function addNote(\ToDoPrviBundle\Entity\Note $notes)
+    {
+        $this->notes[] = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Remove notes
+     *
+     * @param \ToDoPrviBundle\Entity\Note $notes
+     */
+    public function removeNote(\ToDoPrviBundle\Entity\Note $notes)
+    {
+        $this->notes->removeElement($notes);
+    }
+
+    /**
+     * Get notes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNotes()
+    {
+        return $this->notes;
     }
 }
