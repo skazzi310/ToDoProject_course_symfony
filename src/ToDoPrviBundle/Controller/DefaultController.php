@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ToDoPrviBundle\Entity\Item;
+use ToDoPrviBundle\Entity\Note;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use ToDoPrviBundle\Form\Model\Registration;
 use ToDoPrviBundle\Form\Type\RegistrationType;
@@ -15,6 +16,8 @@ use ToDoPrviBundle\Form\Type\RegistrationType;
 
 class DefaultController extends Controller
 {
+    // todo Export getActiveUser, getUserPosts to newly created service 'UserService'
+
     /**
      * @return mixed returns /ToDoPrviBundle/Entity/User object of logged in user
      */
@@ -31,6 +34,16 @@ class DefaultController extends Controller
         $user = $this->getActiveUser();
         $items = $user->getPosts()->getValues();
         return $items;
+    }
+
+    /**
+     * @return array of /ToDoPrviBundle:Entity/Note objects
+     */
+    private function getUserNotes()
+    {
+        $user = $this->getActiveUser();
+        $notes = $user->getNotes()->getValues();
+        return $notes;
     }
 
     /**
@@ -134,8 +147,69 @@ class DefaultController extends Controller
         return $this->render("@ToDoPrvi/Default/edit.html.twig", [
             "form" => $form->createView()
         ]);
+    }
 
-        return $this->render("@ToDoPrvi/Default/edit.html.twig");
+    /**
+     * @Route("/editNote/{id}", name="editNote")
+     * @Method({"GET", "POST"})
+     * edits a to-do list item
+     */
+    public function editNoteAction(Note $note, Request $request)
+    {
+        if ($this->get('user.services')->isUserLogged())
+            $this->redirectToRoute('login_route');
+
+        $form = $this->createFormBuilder($note)
+            ->add("Title", "text", [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add("Content", "textarea", [
+                'attr' => [
+                    'class' => 'form-control',
+                    'rows' => '10'
+                ]
+            ])
+            ->add("CreationTime", "date")
+            ->add("submit", "submit", [
+                "label" => "EDIT",
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($request->isMethod('POST') && $form->getClickedButton()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($note);
+            $em->flush();
+            return $this->redirectToRoute("notes");
+        }
+
+        return $this->render("@ToDoPrvi/Default/editNote.html.twig", [
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/removeNote/{id}", name="removeNote")
+     * @Method({"GET", "POST"})
+     * removes a to-do item from database
+     */
+    public function removeNote(Note $note)
+    {
+//        $item = $this->getDoctrine()
+//            ->getRepository('ToDoPrviBundle:Item')->find($id);
+//       ^^^ not needed because symfony finds the needed item (from id) from database right away
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($note);
+        $em->flush();
+
+        return $this->redirectToRoute('notes');
     }
 
     /**
@@ -221,6 +295,28 @@ class DefaultController extends Controller
     {
         return $this->render("@ToDoPrvi/Default/contact.html.twig");
     }
+
+    /**
+     * @Route("/notes", name="notes")
+     * @Template()
+     */
+    public function showNotesAction(Request $request)
+    {
+        if ($this->get('user.services')->isUserLogged()){
+            // we get the active user object and fetch all notes from database
+            $notes = $this->getUserNotes();
+            return $this->render("@ToDoPrvi/Default/notes.html.twig", [
+                "notes" => $notes
+            ]);
+        }
+        else {
+            // user isn't logged in
+            return $this->redirectToRoute('login_route');
+        }
+
+//        return $this->render("@ToDoPrvi/Default/notes.html.twig");
+    }
+
 
 
     /**
